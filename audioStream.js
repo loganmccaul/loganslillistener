@@ -132,14 +132,14 @@ var squareSizeText = document.getElementById('squareSizeText');
 var controls = document.querySelector('.controls');
 
 /* Resets canvas on square size change */
-squareSize.addEventListener('change', () => {
+squareSize.addEventListener('input', () => {
   ax = 0;
   ay = 0;
   clearRect = true;
   squareSizeText.value = squareSize.value;
 });
 
-squareSizeText.addEventListener('change', () => {
+squareSizeText.addEventListener('input', () => {
   ax = 0;
   ay = 0;
   clearRect = true;
