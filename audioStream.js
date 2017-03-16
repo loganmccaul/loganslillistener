@@ -31,8 +31,7 @@ canvasAverage.setAttribute('width', WIDTH);
 canvasAverage.setAttribute('height', HEIGHT);
 
 
-var PIXELSIZE = WIDTH/100; // Square sizes
-PIXELSIZE = 10;
+var PIXELSIZE = WIDTH/10; // Square sizes
 // var PIXELSIZE = 200; // Bars across
 
 function color(data) {
