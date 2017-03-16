@@ -157,8 +157,8 @@ document.body.addEventListener('mousemove', () => {
 });
 
 // /* Menu open on load */
-// setTimeout(() => {
-//   controls.classList.add('controls--hidden');
-// }, 3000);
+setTimeout(() => {
+  controls.classList.add('controls--hidden');
+}, 3000);
 
 draw();
