@@ -63,10 +63,16 @@
 
 .controls__contact {
 	margin-left: auto;
-	color: #969491;
+	color: rgba(65, 93, 93, .7);
 	white-space: nowrap;
 }
 
 .controls__contact a {
 	color: #415D5D;
+}
+
+.controls__version {
+	font-family: 'abel', sans-serif;
+	font-size: .5rem;
+	color: rgba(65, 93, 93, .7);
 }

@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>Logan's Lil Listener</title>
+	<link rel="shortcut icon" href="favicon.gif" type="image/gif">
 	<style>
 		* {
 			margin: 0;
@@ -12,18 +13,18 @@
 
 </head>
 <body>
-		<div class="controls controls--hidden">
-			<header><h1>Lil' Listener</h1></header>
-			<div class="controls__color">
-				<input type="color" id="startColor" value="#30CCC3"></input>
-				<input type="color" id="endColor" value="#0C3331"></input>
-			</div>
-			<div class="controls__size">
-				<input type="range" id="squareSize" value="10" min="1" max="250" step="1"></input>
-				<input type="text" id="squareSizeText" value="10"></input>
-			</div>
-			<p class="controls__contact">Made by <a href="http://loganmccaul.com">Logan McCaul</a></p>
+	<div class="controls controls--hidden">
+		<header><h1>Lil' Listener<span class="controls__version">v0.1.2</span></h1></header>
+		<div class="controls__color">
+			<input type="color" id="startColor" value="#30CCC3"></input>
+			<input type="color" id="endColor" value="#0C3331"></input>
 		</div>
+		<div class="controls__size">
+			<input type="range" id="squareSize" value="10" min="1" max="250" step="1"></input>
+			<input type="text" id="squareSizeText" value="10"></input>
+		</div>
+		<p class="controls__contact">Made by <a href="http://loganmccaul.com">Logan McCaul</a></p>
+	</div>
 	<canvas id="average"></canvas>
 	<!-- <canvas id="individual" width="500" height="500"></canvas> -->
 	<script src="audioStream.js"></script>

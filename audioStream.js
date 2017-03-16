@@ -59,7 +59,7 @@ var clearRect = false;
 
 function draw() {
 
-  var PIXELSIZE = WIDTH/squareSize.value; // Square sizes
+  var PIXELSIZE = parseInt(WIDTH/squareSize.value); // Square sizes
 
   drawVisual = requestAnimationFrame(draw);
 
