@@ -31,17 +31,20 @@ canvasAverage.setAttribute('width', WIDTH);
 canvasAverage.setAttribute('height', HEIGHT);
 
 
-var PIXELSIZE = WIDTH/10; // Square sizes
 // var PIXELSIZE = 200; // Bars across
 
 function color(data) {
   /* Shades of Teal */
-  var start = 0x30CCC3;
-  var end = 0x0C3331;
+  // var start = 0x30CCC3;
+  // var end = 0x0C3331;
 
   /* Red Yellows and Blues */
   // var start = 0x3EC260;
   // var end = 0xFFA71F;
+
+  /* Dynamic Color */
+  var start = parseInt(document.getElementById('startColor').value.replace('#', ''), 16);
+  var end = parseInt(document.getElementById('endColor').value.replace('#', ''), 16);
 
   var r = (start & 0xFF0000) * data + (end & 0xFF0000) * data;
   var g = (start & 0x00FF00) * data + (end & 0x00FF00) * data;
@@ -52,7 +55,11 @@ function color(data) {
 
 var notes = []; // Array for bars
 
+var clearRect = false;
+
 function draw() {
+
+  var PIXELSIZE = WIDTH/squareSize.value; // Square sizes
 
   drawVisual = requestAnimationFrame(draw);
 
@@ -61,6 +68,12 @@ function draw() {
   // avgCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
   analyser.getByteFrequencyData(dataArray);
+
+  if (clearRect) {
+    avgCtx.fillStyle = 'white';
+    avgCtx.clearRect(0, 0, WIDTH, HEIGHT);
+    clearRect = false;
+  }
 
   /* Gets total data value for 32 fft */
 	var data = dataArray.reduce((a, b) => a + b) * .0003;
@@ -112,5 +125,40 @@ function draw() {
   //   indCtx.fillRect((ix * i * 5), 256 - dataArray[i] / 2, 5, dataArray[i] / 2);
   // }
 };
+
+/* Selectors */
+var squareSize = document.getElementById('squareSize');
+var squareSizeText = document.getElementById('squareSizeText');
+var controls = document.querySelector('.controls');
+
+/* Resets canvas on square size change */
+squareSize.addEventListener('change', () => {
+  ax = 0;
+  ay = 0;
+  clearRect = true;
+  squareSizeText.value = squareSize.value;
+});
+
+squareSizeText.addEventListener('change', () => {
+  ax = 0;
+  ay = 0;
+  clearRect = true;
+  squareSize.value = squareSizeText.value;
+});
+
+/* Shows Controls */
+var timeout;
+document.body.addEventListener('mousemove', () => {
+  controls.classList.add('controls--open');
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    controls.classList.remove('controls--open')
+  }, 1500);
+});
+
+// /* Menu open on load */
+// setTimeout(() => {
+//   controls.classList.add('controls--hidden');
+// }, 3000);
 
 draw();
