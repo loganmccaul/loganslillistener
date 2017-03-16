@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Abel');
+
+.controls {
+	font-family: 'abel', sans-serif;
+	display: flex;
+	justify-content: flex-start	;
+	align-items: center;
+	padding: .5rem 2.5rem;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	/*background: #f6f4f1;*/
+	background: rgba(246, 244, 241, .8);
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+	transition: all .4s ease-out;
+}
+
+.controls--hidden {
+	/*transform: translateY(-100%);*/
+	opacity: 0;
+}
+
+.controls--open {
+	/*transform: translateY(0%);*/
+	opacity: 1;
+}
+
+.controls header {
+	color: #415D5D;
+	margin-right: 2.5rem;
+	white-space: nowrap;
+}
+
+.controls__color {
+}
+
+.controls__color input{
+	margin-right: .5rem;
+	border: none;
+	background: none;
+}
+
+.controls__size {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-grow: 2;
+	margin: 0 2rem;
+}
+
+.controls__size #squareSize {
+	width: 100%;
+}
+
+.controls__size #squareSizeText {
+	width: 2.25rem;
+	margin-left: 1rem;
+	background: none;
+	padding: .25rem .5rem;
+	border: 1px solid #415D5D;
+	color: #415D5D;
+}
+
+.controls__contact {
+	margin-left: auto;
+	color: #969491;
+	white-space: nowrap;
+}
+
+.controls__contact a {
+	color: #415D5D;
+}
