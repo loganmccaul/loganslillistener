@@ -13,7 +13,7 @@ navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(function(s
 analyser.fftSize = 32;
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
-analyser.smoothingTimeConstant = .5;
+analyser.smoothingTimeConstant = .9;
 
 // Get a canvas defined with ID "oscilloscope"
 var canvasAverage = document.getElementById("average");
@@ -46,9 +46,9 @@ function color(data) {
   var start = parseInt(document.getElementById('startColor').value.replace('#', ''), 16);
   var end = parseInt(document.getElementById('endColor').value.replace('#', ''), 16);
 
-  var r = (start & 0xFF0000) * data + (end & 0xFF0000) * data;
-  var g = (start & 0x00FF00) * data + (end & 0x00FF00) * data;
-  var b = (start & 0x0000FF) * data + (end & 0x0000FF) * data;
+  var r = (start & 0xFF0000) * (1 - data) + (end & 0xFF0000) * data;
+  var g = (start & 0x00FF00) * (1 - data) + (end & 0x00FF00) * data;
+  var b = (start & 0x0000FF) * (1 - data) + (end & 0x0000FF) * data;
 
   return `#${((r & 0xFF0000) + (g & 0x00FF00) + (b & 0x0000FF)).toString(16)}`;
 }
