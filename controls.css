@@ -25,6 +25,10 @@
 	opacity: 1;
 }
 
+.controls:hover {
+	opacity: 1;
+}
+
 .controls header {
 	color: #415D5D;
 	margin-right: 2.5rem;
