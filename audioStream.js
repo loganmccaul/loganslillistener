@@ -56,74 +56,76 @@ function color(data) {
 var notes = []; // Array for bars
 
 var clearRect = false;
+var paused = false;
 
 function draw() {
-
-  var PIXELSIZE = parseInt(WIDTH/squareSize.value); // Square sizes
-
   drawVisual = requestAnimationFrame(draw);
 
-  /* Background if notes saved in array */
-  // avgCtx.fillStyle = 'black';
-  // avgCtx.fillRect(0, 0, WIDTH, HEIGHT);
+  if (!paused) {
+    var PIXELSIZE = parseInt(WIDTH/squareSize.value); // Square sizes
 
-  analyser.getByteFrequencyData(dataArray);
+    /* Background if notes saved in array */
+    // avgCtx.fillStyle = 'black';
+    // avgCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  if (clearRect) {
-    avgCtx.fillStyle = 'white';
-    avgCtx.clearRect(0, 0, WIDTH, HEIGHT);
-    clearRect = false;
+    analyser.getByteFrequencyData(dataArray);
+
+    if (clearRect) {
+      avgCtx.fillStyle = 'white';
+      avgCtx.clearRect(0, 0, WIDTH, HEIGHT);
+      clearRect = false;
+    }
+
+    /* Gets total data value for 32 fft */
+  	var data = dataArray.reduce((a, b) => a + b) * .0003;
+    if (data > 1) data = 1; // Max
+    else if (data < 0) data = 0; // Min
+
+   /* Squares: If off the page reset position */
+  	if (ax > WIDTH) {
+  		ax = 0;
+  		ay += PIXELSIZE;
+  	}
+  	if (ay > HEIGHT) {
+  		ay = 0;
+  	}
+
+
+  /* Saves not in array for bars */
+   // notes.unshift({
+   //    ax,
+   //    ay,
+   //    width: PIXELSIZE,
+   //    height: HEIGHT,
+   //    data
+   //  });
+
+    /* Removes nodes off the screen from the array of nodes */
+    // if (notes.length >(WIDTH / PIXELSIZE + (PIXELSIZE / 10))) notes.pop();
+
+  	avgCtx.fillStyle = color(data);
+  	avgCtx.fillRect(ax, ay, PIXELSIZE, PIXELSIZE);
+    ax += PIXELSIZE;
+
+    /* Loops through notes array and adds color for bars */
+    // for(var i = 0; i < notes.length; i++) {
+    //     avgCtx.fillStyle = color(notes[i].data);
+    //     avgCtx.globalAlpha = (notes.length - i) / notes.length;
+    //     avgCtx.fillRect(notes[i].ax - (i * notes[i].width), notes[i].ay, notes[i].width, notes[i].height);
+    //     avgCtx.globalAlpha = 1;
+    // }
+
+    /* Normal Audio Frequency display uses different canvas */
+    // indCtx.fillStyle = 'white';
+    // indCtx.fillRect(0, 0, WIDTH, HEIGHT);
+    //
+    // for (var i = 0; i < bufferLength; i++) {
+    //   dataArray[i]
+    //
+    //   indCtx.fillStyle = 'black';
+    //   indCtx.fillRect((ix * i * 5), 256 - dataArray[i] / 2, 5, dataArray[i] / 2);
+    // }
   }
-
-  /* Gets total data value for 32 fft */
-	var data = dataArray.reduce((a, b) => a + b) * .0003;
-  if (data > 1) data = 1; // Max
-  else if (data < 0) data = 0; // Min
-
- /* Squares: If off the page reset position */
-	if (ax > WIDTH) {
-		ax = 0;
-		ay += PIXELSIZE;
-	}
-	if (ay > HEIGHT) {
-		ay = 0;
-	}
-
-
-/* Saves not in array for bars */
- // notes.unshift({
- //    ax,
- //    ay,
- //    width: PIXELSIZE,
- //    height: HEIGHT,
- //    data
- //  });
-
-  /* Removes nodes off the screen from the array of nodes */
-  // if (notes.length >(WIDTH / PIXELSIZE + (PIXELSIZE / 10))) notes.pop();
-
-	avgCtx.fillStyle = color(data);
-	avgCtx.fillRect(ax, ay, PIXELSIZE, PIXELSIZE);
-  ax += PIXELSIZE;
-
-  /* Loops through notes array and adds color for bars */
-  // for(var i = 0; i < notes.length; i++) {
-  //     avgCtx.fillStyle = color(notes[i].data);
-  //     avgCtx.globalAlpha = (notes.length - i) / notes.length;
-  //     avgCtx.fillRect(notes[i].ax - (i * notes[i].width), notes[i].ay, notes[i].width, notes[i].height);
-  //     avgCtx.globalAlpha = 1;
-  // }
-
-  /* Normal Audio Frequency display uses different canvas */
-  // indCtx.fillStyle = 'white';
-  // indCtx.fillRect(0, 0, WIDTH, HEIGHT);
-  //
-  // for (var i = 0; i < bufferLength; i++) {
-  //   dataArray[i]
-  //
-  //   indCtx.fillStyle = 'black';
-  //   indCtx.fillRect((ix * i * 5), 256 - dataArray[i] / 2, 5, dataArray[i] / 2);
-  // }
 };
 
 /* Selectors */
@@ -134,6 +136,8 @@ var startColor = document.getElementById('startColor');
 var endColor = document.getElementById('endColor');
 var controls = document.querySelector('.controls');
 var reset = document.getElementById('reset');
+var pause = document.getElementById('pause');
+var pauseOverlay = document.querySelector('.pause__overlay');
 
 /* Resets canvas on square size change */
 squareSize.addEventListener('input', () => {
@@ -141,6 +145,7 @@ squareSize.addEventListener('input', () => {
   ay = 0;
   clearRect = true;
   squareSizeText.value = squareSize.value;
+  setLocalStorage('squareSize', squareSize.value);
 });
 
 squareSizeText.addEventListener('input', () => {
@@ -148,6 +153,7 @@ squareSizeText.addEventListener('input', () => {
   ay = 0;
   clearRect = true;
   squareSize.value = squareSizeText.value;
+  setLocalStorage('squareSize', squareSizeText.value);
 });
 
 /* Shows Controls */
@@ -165,11 +171,22 @@ setTimeout(() => {
   controls.classList.add('controls--hidden');
 }, 3000);
 
+/* Color change */
+startColor.addEventListener('change', () => {
+  setLocalStorage('startColor', startColor.value);
+});
+
+endColor.addEventListener('change', ()=> {
+  setLocalStorage('endColor', endColor.value);
+});
+
 /* Swap Colors Button */
 swapColor.addEventListener('click', () => {
   var tempColor = startColor.value;
   startColor.value = endColor.value;
   endColor.value = tempColor;
+  setLocalStorage('startColor', startColor.value);
+  setLocalStorage('endColor', endColor.value);
 });
 
 /* Reset Changes */
@@ -181,6 +198,54 @@ reset.addEventListener('click', () => {
   endColor.value = '#0C3331';
   squareSizeText.value = 10;
   squareSize.value = 10;
+  resetLocalStorage();
 });
+
+/* Pause and Play */
+pause.addEventListener('click', () => {
+  if (paused) {
+    paused = false;
+    pause.textContent = 'Pause';
+    pauseOverlay.classList.add('pause__overlay--hidden');
+  } else {
+    paused = true;
+    pause.textContent = 'Play';
+    pauseOverlay.classList.remove('pause__overlay--hidden');
+  }
+});
+
+/* Store form data in localStorage to save between sessions */
+var storedStartColor = window.localStorage.getItem('startColor');
+var storedEndColor = window.localStorage.getItem('endColor');
+var storedSquareSize = window.localStorage.getItem('squareSize');
+
+if (storedStartColor) {
+  startColor.value = storedStartColor;
+} else {
+  window.localStorage.setItem('startColor', '#30CCC3');
+}
+
+if (storedEndColor) {
+  endColor.value = storedEndColor;
+} else {
+  window.localStorage.setItem('endColor', '#0C3331');
+}
+
+if (storedSquareSize) {
+  squareSizeText.value = storedSquareSize;
+  squareSize.value = storedSquareSize;
+} else {
+  window.localStorage.setItem('squareSize', '10');
+}
+
+function resetLocalStorage() {
+  window.localStorage.setItem('startColor', '#30CCC3');
+  window.localStorage.setItem('endColor', '#0C3331');
+  window.localStorage.setItem('squareSize', '10');
+}
+
+function setLocalStorage(item, value) {
+  window.localStorage.setItem(item, value);
+}
 
 draw();

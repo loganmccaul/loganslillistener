@@ -44,12 +44,15 @@
 	margin-right: .5rem;
 	border: none;
 	background: none;
+	width: 50px;
+	height: 31px;
 }
 
 button {
 	padding: .25rem;
 	margin-right: .5rem;
 	background: none;
+	width: 50px;
 	border: 1px solid #415D5D;
 }
 
@@ -92,4 +95,42 @@ button {
 
 #reset {
 	margin-right: 2rem;
+}
+
+.pause__overlay {
+	position: absolute;
+	width: 400px;
+	height: 400px;
+	transform: translate(-50%, -50%);
+	top: -650%;
+	left: 50%;
+	background: rgba(0,0,0,0);
+}
+
+.pause__overlay--hidden {
+	display: none;
+}
+
+.pause__overlay::before {
+	position: absolute;
+	content: '';
+	background: rgba(246, 244, 241, .8);
+	width: 50px;
+	height: 150px;
+	top: 40%;
+	left: 50%;
+	margin-right: 75px;
+	transform: translate(-50%, -50%);
+}
+
+.pause__overlay::after {
+	position: absolute;
+	content: '';
+	background: rgba(246, 244, 241, .8);
+	width: 50px;
+	height: 150px;
+	top: 40%;
+	left: 50%;
+	margin-left: 75px;
+	transform: translate(-50%, -50%);
 }
