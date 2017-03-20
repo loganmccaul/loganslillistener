@@ -3,19 +3,49 @@
 	<title>Logan's Lil Listener</title>
 	<link rel="shortcut icon" href="favicon.gif" type="image/gif">
 	<style>
+		@import url('https://fonts.googleapis.com/css?family=Abel');
+
 		* {
 			margin: 0;
 			padding: 0;
 			box-sizing: border-box;
 		}
+
+		body {
+			font-family: 'abel', sans-serif;
+		}
+
+		button {
+			padding: .5rem .25rem;
+			margin-right: .5rem;
+			background: none;
+			width: 50px;
+			border: 1px solid #415D5D;
+			transition: all .15s ease-in-out;
+		}
+
+		button:hover {
+			color: rgba(246, 244, 241, 1);
+			background: #415D5D;
+			cursor: pointer;
+		}
 	</style>
+	<link rel="stylesheet" type="text/css" href="instructions.css">
 	<link rel="stylesheet" type="text/css" href="controls.css">
 
 </head>
 <body>
-	<div class="controls">
+	<div class="instructions">
+		<div id="close" class="instructions__close"></div>
+		<h2>Welcome!</h2>
+		<p class="instructions__text">Go ahead speak, play music, or make any sound, but first make sure to allow microphone input.</p>
+		<p class="instructions__min-required">Works best in <a href="https://www.google.com/chrome/" target="_blank">Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/products/" target="_blank">Firefox</a>.</p>
+		<input id="showAgain" type="checkbox" class="instructions__checkbox"></input><label class="instructions__label" for="showAgain">Don't show this message again.</label>
+		<button id="dismiss">Dismiss</button>
+	</div>
+	<div class="controls controls--hidden">
 		<div class="pause__overlay pause__overlay--hidden"></div>
-		<header><h1>Lil' Listener<span class="controls__version">v0.9.4</span></h1></header>
+		<header><h1>Lil' Listener<span class="controls__version">v0.9.5</span></h1></header>
 		<div class="controls__color">
 			<input type="color" id="startColor" value="#30CCC3"></input>
 			<button id="swapColor">Swap</button>

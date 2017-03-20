@@ -1,0 +1,79 @@
+.instructions {
+	background: rgba(246, 244, 241, 1);
+	position: fixed;
+	width: 275px;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #415D5D;
+	padding: 1rem 2rem;
+	line-height: 1.25;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.instructions--hidden {
+		display: none;
+}
+
+.instructions__text {
+	margin: .5rem 0 .5rem;
+}
+
+.instructions__min-required {
+	font-size: .75rem;
+	margin-bottom: 1.75rem;
+}
+
+.instructions__checkbox {
+	width: 1rem;
+	height: 1rem;
+	margin-right: .25rem;
+	position: relative;
+	top: 1px;
+}
+
+.instructions__label {
+	font-size: .875rem;
+}
+
+#dismiss {
+	margin: .5rem auto 0;
+	display: block;
+	color: rgba(246, 244, 241, 1);
+	background: #415D5D;
+	width: 75px;
+}
+
+#dismiss:hover {
+	background: rgba(65, 93, 93, .8);
+}
+
+.instructions__close {
+	position: absolute;
+	top: .75rem;
+	right: .25rem;
+	width: 1rem;
+	height: 1rem;
+}
+
+.instructions__close::before {
+	content: '';
+	position: absolute;
+	width: 3px;
+	height: 13px;
+	background: #415D5D;
+	transform: rotate(45deg);
+}
+
+.instructions__close::after {
+	content: '';
+	position: absolute;
+	width: 3px;
+	height: 13px;
+	background: #415D5D;
+	transform: rotate(-45deg);
+}
+
+.instructions__close:hover {
+	cursor: pointer;
+}

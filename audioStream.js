@@ -138,6 +138,10 @@ var controls = document.querySelector('.controls');
 var reset = document.getElementById('reset');
 var pause = document.getElementById('pause');
 var pauseOverlay = document.querySelector('.pause__overlay');
+var instructions = document.querySelector('.instructions');
+var dismiss = document.getElementById('dismiss');
+var close = document.getElementById('close');
+var showAgain = document.getElementById('showAgain');
 
 /* Resets canvas on square size change */
 squareSize.addEventListener('input', () => {
@@ -159,17 +163,12 @@ squareSizeText.addEventListener('input', () => {
 /* Shows Controls */
 var timeout;
 document.body.addEventListener('mousemove', () => {
-  controls.classList.add('controls--open');
+  if (instructions.classList.contains('instructions--hidden')) controls.classList.add('controls--open');
   clearTimeout(timeout);
   timeout = setTimeout(() => {
     controls.classList.remove('controls--open')
   }, 1500);
 });
-
-/* Menu open on load */
-setTimeout(() => {
-  controls.classList.add('controls--hidden');
-}, 3000);
 
 /* Color change */
 startColor.addEventListener('change', () => {
@@ -214,10 +213,22 @@ pause.addEventListener('click', () => {
   }
 });
 
+/* Closes instructions modal */
+dismiss.addEventListener('click', () => {
+  instructions.classList.add('instructions--hidden');
+  if (showAgain.checked) setLocalStorage('dismiss', true);
+});
+
+close.addEventListener('click', () => {
+  instructions.classList.add('instructions--hidden');
+  if (showAgain.checked) setLocalStorage('dismiss', true);
+});
+
 /* Store form data in localStorage to save between sessions */
 var storedStartColor = window.localStorage.getItem('startColor');
 var storedEndColor = window.localStorage.getItem('endColor');
 var storedSquareSize = window.localStorage.getItem('squareSize');
+var storedDismissState = window.localStorage.getItem('dismiss');
 
 if (storedStartColor) {
   startColor.value = storedStartColor;
@@ -236,6 +247,10 @@ if (storedSquareSize) {
   squareSize.value = storedSquareSize;
 } else {
   window.localStorage.setItem('squareSize', '10');
+}
+
+if (storedDismissState) {
+  instructions.classList.add('instructions--hidden');
 }
 
 function resetLocalStorage() {

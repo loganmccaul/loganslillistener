@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Abel');
-
 .controls {
-	font-family: 'abel', sans-serif;
 	display: flex;
 	justify-content: flex-start	;
 	align-items: center;
@@ -44,16 +41,12 @@
 	margin-right: .5rem;
 	border: none;
 	background: none;
-	width: 50px;
-	height: 31px;
+	width: 60px;
+	height: 39px;
 }
 
-button {
-	padding: .25rem;
-	margin-right: .5rem;
-	background: none;
-	width: 50px;
-	border: 1px solid #415D5D;
+.controls__color input:hover {
+	cursor: pointer;
 }
 
 .controls__size {
