@@ -32,12 +32,21 @@
 }
 
 .controls__color {
+	display: flex;
+	align-items: center;
 }
 
 .controls__color input{
 	margin-right: .5rem;
 	border: none;
 	background: none;
+}
+
+button {
+	padding: .25rem;
+	margin-right: .5rem;
+	background: none;
+	border: 1px solid #415D5D;
 }
 
 .controls__size {
@@ -75,4 +84,8 @@
 	font-family: 'abel', sans-serif;
 	font-size: .5rem;
 	color: rgba(65, 93, 93, .7);
+}
+
+#reset {
+	margin-right: 2rem;
 }

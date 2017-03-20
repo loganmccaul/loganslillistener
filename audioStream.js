@@ -129,7 +129,11 @@ function draw() {
 /* Selectors */
 var squareSize = document.getElementById('squareSize');
 var squareSizeText = document.getElementById('squareSizeText');
+var swapColor = document.getElementById('swapColor');
+var startColor = document.getElementById('startColor');
+var endColor = document.getElementById('endColor');
 var controls = document.querySelector('.controls');
+var reset = document.getElementById('reset');
 
 /* Resets canvas on square size change */
 squareSize.addEventListener('input', () => {
@@ -156,9 +160,27 @@ document.body.addEventListener('mousemove', () => {
   }, 1500);
 });
 
-// /* Menu open on load */
+/* Menu open on load */
 setTimeout(() => {
   controls.classList.add('controls--hidden');
 }, 3000);
+
+/* Swap Colors Button */
+swapColor.addEventListener('click', () => {
+  var tempColor = startColor.value;
+  startColor.value = endColor.value;
+  endColor.value = tempColor;
+});
+
+/* Reset Changes */
+reset.addEventListener('click', () => {
+  ax = 0;
+  ay = 0;
+  clearRect = true;
+  startColor.value = '#30CCC3';
+  endColor.value = '#0C3331';
+  squareSizeText.value = 10;
+  squareSize.value = 10;
+});
 
 draw();
