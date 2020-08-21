@@ -1,7 +1,5 @@
 ---
 applications:
 - buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
-  host: loganslillistener
   name: LogansLilListener
   memory: 256M
-  stack: cflinuxfs2

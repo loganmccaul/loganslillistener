@@ -215,6 +215,7 @@ pause.addEventListener('click', () => {
 
 /* Closes instructions modal */
 dismiss.addEventListener('click', () => {
+  audioCtx.resume().then(() => console.log('microphone active'));
   instructions.classList.add('instructions--hidden');
   if (showAgain.checked) setLocalStorage('dismiss', true);
 });

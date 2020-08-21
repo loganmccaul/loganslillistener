@@ -30,10 +30,12 @@
 	margin-right: .25rem;
 	position: relative;
 	top: 1px;
+	display: none; /* Temporarily hide */
 }
 
 .instructions__label {
 	font-size: .875rem;
+	display: none;
 }
 
 #dismiss {
@@ -41,7 +43,7 @@
 	display: block;
 	color: rgba(246, 244, 241, 1);
 	background: #415D5D;
-	width: 75px;
+	width: 150px;
 }
 
 #dismiss:hover {
@@ -54,6 +56,7 @@
 	right: .25rem;
 	width: 1rem;
 	height: 1rem;
+	display: none;
 }
 
 .instructions__close::before {
